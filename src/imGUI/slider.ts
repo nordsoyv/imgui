@@ -3,8 +3,8 @@ import { drawRect, regionHit } from './util'
 
 import { WidgetId } from '../types';
 
-export function slider(id : WidgetId, x : number, y : number, max: number, widgetStatePos: number) {
-  const {value}= uiState.widgetState[widgetStatePos];
+export function slider(id : WidgetId, x : number, y : number, max: number) {
+  const {value}= uiState.widgetState[id];
   const ypos = ((256 - 16) * value) / max;
   if (regionHit(x + 8, y + 8, 16, 255)) {
     uiState.hotItem = id;
@@ -30,7 +30,7 @@ export function slider(id : WidgetId, x : number, y : number, max: number, widge
     }
     const v = (mousePos * max ) / 255;
     if(v !== value){
-      uiState.widgetState[widgetStatePos].value = v;
+      uiState.widgetState[id].value = v;
       return true;
     }
   }

@@ -1,14 +1,14 @@
 import { button } from './button';
+import { ids } from './ids';
 import { slider } from './slider';
 import { uiState } from './uiState';
-import { setCtx } from './util';
+import { setCtx,  } from './util';
 
 import { IMouseInfo } from '../types';
 
-const sliderOneValue = uiState.widgetState.push({value : 100}) -1;
-
-const sliderTwoValue = uiState.widgetState.push({value : 100})-1;
-const sliderThreeValue = uiState.widgetState.push({value : 100})-1;
+uiState.widgetState[ids.SLIDER_1] = { value: 100 };
+uiState.widgetState[ids.SLIDER_2] = { value: 100 };
+uiState.widgetState[ids.SLIDER_3] = { value: 100 };
 
 function beginUI() {
   uiState.hotItem = 0;
@@ -24,26 +24,31 @@ function endUI() {
   }
 }
 
-export function drawUi(c : CanvasRenderingContext2D, mouseinfo :  IMouseInfo) {
+export function drawUi(c: CanvasRenderingContext2D, mouseinfo: IMouseInfo) {
   uiState.mouseX = mouseinfo.xPos;
   uiState.mouseY = mouseinfo.yPos;
   uiState.mouseDown = mouseinfo.leftButton;
   beginUI();
   setCtx(c);
-  button(1, 50, 50);
-  button(2, 150, 50);
-  if (button(3, 50, 150)) {
+  const red = 255 -uiState.widgetState[ids.SLIDER_1].value;
+  const green = 255 -uiState.widgetState[ids.SLIDER_2].value;
+  const blue = 255 -uiState.widgetState[ids.SLIDER_3].value;
+  c.fillStyle = `rgb(${red},${green},${blue})`;
+  c.fillRect(0, 0, 1200, 800)
+  button(ids.BUTTON_1, 50, 50);
+  button(ids.BUTTON_2, 150, 50);
+  if (button(ids.BUTTON_3, 50, 150)) {
     // tslint:disable-next-line 
     console.log("Button 3 pressed");
   }
-  if (button(4, 150, 150)) {
+  if (button(ids.BUTTON_4, 150, 150)) {
     // tslint:disable-next-line 
     console.log("Button 4 pressed")
   }
 
-  slider(5, 500, 40, 255, sliderOneValue)
-  slider(6, 550, 40, 255, sliderTwoValue)
-  slider(7, 600, 40, 255, sliderThreeValue)
+  slider(ids.SLIDER_1, 500, 40, 255)
+  slider(ids.SLIDER_2, 550, 40, 255)
+  slider(ids.SLIDER_3, 600, 40, 255)
 
   // drawRect(uiState.mouseX, uiState.mouseY, 50, 50, uiState.mouseDown ? 'blue' : 'green')
   endUI();
