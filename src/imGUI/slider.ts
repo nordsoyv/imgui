@@ -13,11 +13,11 @@ export function slider(id : WidgetId, x : number, y : number, max: number) {
     }
   }
 
-  drawRect(x, y, 32, 256 + 16, '#222')
+  drawRect(x, y, 32, 256 + 16, '#222',5)
   if (uiState.activeItem === id || uiState.hotItem === id) {
-    drawRect(x + 8, y + 8+ypos, 16, 16, '#fff');
+    drawRect(x + 8, y + 8+ypos, 16, 16, '#fff',2);
   } else {
-    drawRect(x + 8, y + 8+ypos, 16, 16, '#777')
+    drawRect(x + 8, y + 8+ypos, 16, 16, '#777',2)
   }
 
   if (uiState.activeItem === id) {

@@ -1,4 +1,4 @@
-import { button } from './button';
+import { button,textButton } from './button';
 import { ids } from './ids';
 import { slider } from './slider';
 import { uiState } from './uiState';
@@ -41,7 +41,7 @@ export function drawUi(c: CanvasRenderingContext2D, mouseinfo: IMouseInfo) {
     // tslint:disable-next-line 
     console.log("Button 3 pressed");
   }
-  if (button(ids.BUTTON_4, 150, 150)) {
+  if (textButton(ids.BUTTON_4, "Button 4", 150, 150,100,50)) {
     // tslint:disable-next-line 
     console.log("Button 4 pressed")
   }
