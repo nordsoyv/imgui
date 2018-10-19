@@ -1,10 +1,10 @@
 import * as React from 'react';
 import './App.css';
 import { drawUi } from './imGUI'
-import { IMouseInfo } from './types';
+import { IKeyInfo,IMouseInfo } from './types';
 
 class App extends React.Component {
-  
+
   private canvas = React.createRef<HTMLCanvasElement>();
   private mouseInfo: IMouseInfo = {
     leftButton: false,
@@ -12,27 +12,54 @@ class App extends React.Component {
     xPos: 0,
     yPos: 0,
   };
+  private keyInfo : IKeyInfo = {
+    alt : false,
+    ctrl : false,
+    key : '',
+    shift : false,
+  };
   private ctx: CanvasRenderingContext2D | null;
-  
-  
+
+
   constructor(props: any) {
     super(props);
   };
-  
+
   public componentDidMount() {
     if (this.canvas.current) {
       this.canvas.current.addEventListener('mousemove', this.getMousePos);
       this.canvas.current.addEventListener('mousedown', this.getMouseButtonDown);
       this.canvas.current.addEventListener('mouseup', this.getMouseButtonUp);
+      this.canvas.current.addEventListener('keypress', this.getKeyPressed);
+      this.canvas.current.addEventListener('keydown', this.getKeyDown);
+      this.canvas.current.addEventListener('keyup', this.getKeyUp);
       requestAnimationFrame(this.renderFrame)
     }
   }
   public render() {
     return (
       <div className="App">
-        <canvas className="Canvas" id="canvas" width={1200} height={800} ref={this.canvas} />
+        <canvas className="Canvas" id="canvas" width={1200} height={800} ref={this.canvas} tabIndex={1} />
       </div>
     );
+  }
+
+  private getKeyPressed = (evt: KeyboardEvent) => {
+      // tslint:disable-next-line 
+      // console.log(evt)
+      this.keyInfo.key = evt.key;
+  }
+
+  private getKeyDown = (evt: KeyboardEvent) => {
+    if(evt.key ==='Tab'){
+      this.keyInfo.key = evt.key;
+    }
+  }
+
+  private getKeyUp = (evt: KeyboardEvent) => {
+    if(evt.key ==='Tab'){
+      this.keyInfo.key = '';
+    }
   }
 
   private getMousePos = (evt: MouseEvent) => {
@@ -76,8 +103,9 @@ class App extends React.Component {
       this.ctx = this.canvas.current.getContext('2d');
       if (this.ctx) {
         this.clearCanvas();
-        drawUi(this.ctx, this.mouseInfo);
+        drawUi(this.ctx, this.mouseInfo, this.keyInfo);
       }
+      this.keyInfo.key = ''
       requestAnimationFrame(this.renderFrame);
 
     }

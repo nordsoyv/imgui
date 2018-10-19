@@ -6,7 +6,13 @@ class UiState {
   public hotItem = 0;
   public activeItem = 0;
   public widgetState: any[] = [];
+  public keyFocusItem = 0;
+  public keyEntered = '';
+  public keyMod = 0;
+  public lastWidget = 0;
 }
 
 
-export const uiState = new UiState();
+const uiState = new UiState();
+
+export const getUiState  = () => uiState;

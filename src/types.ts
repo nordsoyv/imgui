@@ -6,3 +6,10 @@ export interface IMouseInfo {
   leftButton : boolean;
   rightButton: boolean;
 }
+
+export interface  IKeyInfo  {
+  key : string;
+  alt : boolean;
+  shift :  boolean;
+  ctrl :  boolean;
+};

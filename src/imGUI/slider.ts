@@ -1,9 +1,10 @@
-import { uiState } from './uiState'
+import { getUiState } from './uiState'
 import { drawRect, regionHit } from './util'
 
 import { WidgetId } from '../types';
 
 export function slider(id : WidgetId, x : number, y : number, max: number) {
+  const uiState = getUiState();
   const {value}= uiState.widgetState[id];
   const ypos = ((256 - 16) * value) / max;
   if (regionHit(x + 8, y + 8, 16, 255)) {
