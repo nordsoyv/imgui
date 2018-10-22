@@ -8,7 +8,10 @@ class UiState {
   public widgetState: any[] = [];
   public keyFocusItem = 0;
   public keyEntered = '';
-  public keyMod = 0;
+  public keyShift = false;
+  public keyCtrl =false;
+  public keyAlt = false;
+
   public lastWidget = 0;
 }
 

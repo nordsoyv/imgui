@@ -1,10 +1,10 @@
-import { button,textButton } from './button';
+import { button, textButton } from './button';
 import { ids } from './ids';
 import { slider } from './slider';
 import { getUiState } from './uiState';
-import { setCtx,  } from './util';
+import { setCtx, } from './util';
 
-import { IKeyInfo,IMouseInfo  } from '../types';
+import { IKeyInfo, IMouseInfo } from '../types';
 const uiState = getUiState();
 uiState.widgetState[ids.SLIDER_1] = { value: 100 };
 uiState.widgetState[ids.SLIDER_2] = { value: 100 };
@@ -24,19 +24,26 @@ function endUI() {
       uiState2.activeItem = -1;
     }
   }
+
+  if( uiState2.keyEntered === 'Tab'){
+    uiState2.keyFocusItem = 0;
+  }
+  uiState2.keyEntered ='';
+
 }
 
-export function drawUi(c: CanvasRenderingContext2D, mouseinfo: IMouseInfo, keyInfo : IKeyInfo) {
+export function drawUi(c: CanvasRenderingContext2D, mouseinfo: IMouseInfo, keyInfo: IKeyInfo) {
   const uiState2 = getUiState();
   uiState2.mouseX = mouseinfo.xPos;
   uiState2.mouseY = mouseinfo.yPos;
   uiState2.mouseDown = mouseinfo.leftButton;
-  uiState2.keyEntered =keyInfo.key;  
+  uiState2.keyEntered = keyInfo.key;
+  uiState2.keyShift = keyInfo.shift;
   beginUI();
   setCtx(c);
-  const red = 255 -uiState2.widgetState[ids.SLIDER_1].value;
-  const green = 255 -uiState2.widgetState[ids.SLIDER_2].value;
-  const blue = 255 -uiState2.widgetState[ids.SLIDER_3].value;
+  const red = 255 - uiState2.widgetState[ids.SLIDER_1].value;
+  const green = 255 - uiState2.widgetState[ids.SLIDER_2].value;
+  const blue = 255 - uiState2.widgetState[ids.SLIDER_3].value;
   c.fillStyle = `rgb(${red},${green},${blue})`;
   c.fillRect(0, 0, 1200, 800)
   button(ids.BUTTON_1, 50, 50);
@@ -45,7 +52,7 @@ export function drawUi(c: CanvasRenderingContext2D, mouseinfo: IMouseInfo, keyIn
     // tslint:disable-next-line 
     console.log("Button 3 pressed");
   }
-  if (textButton(ids.BUTTON_4, "Button 4", 150, 150,100,50)) {
+  if (textButton(ids.BUTTON_4, "Button 4", 150, 150, 100, 50)) {
     // tslint:disable-next-line 
     console.log("Button 4 pressed")
   }

@@ -45,20 +45,24 @@ class App extends React.Component {
   }
 
   private getKeyPressed = (evt: KeyboardEvent) => {
-      // tslint:disable-next-line 
-      // console.log(evt)
       this.keyInfo.key = evt.key;
+      this.keyInfo.shift = evt.shiftKey;
   }
 
   private getKeyDown = (evt: KeyboardEvent) => {
-    if(evt.key ==='Tab'){
+          // tslint:disable-next-line 
+//          console.log(evt)
+
+    if(evt.key ==='Tab' || evt.key === 'ArrowUp'|| evt.key === 'ArrowDown'|| evt.key === 'ArrowLeft'|| evt.key === 'ArrowRight'){
       this.keyInfo.key = evt.key;
+      this.keyInfo.shift = evt.shiftKey;
     }
   }
 
   private getKeyUp = (evt: KeyboardEvent) => {
-    if(evt.key ==='Tab'){
+    if(evt.key ==='Tab' || evt.key === 'ArrowUp'|| evt.key === 'ArrowDown'|| evt.key === 'ArrowLeft'|| evt.key === 'ArrowRight'){
       this.keyInfo.key = '';
+      this.keyInfo.shift = evt.shiftKey;
     }
   }
 
