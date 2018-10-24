@@ -47,6 +47,8 @@ class App extends React.Component {
   private getKeyPressed = (evt: KeyboardEvent) => {
       this.keyInfo.key = evt.key;
       this.keyInfo.shift = evt.shiftKey;
+      this.keyInfo.alt = evt.altKey;
+      this.keyInfo.ctrl = evt.ctrlKey;
   }
 
   private getKeyDown = (evt: KeyboardEvent) => {
@@ -56,6 +58,8 @@ class App extends React.Component {
     if(evt.key ==='Tab' || evt.key === 'ArrowUp'|| evt.key === 'ArrowDown'|| evt.key === 'ArrowLeft'|| evt.key === 'ArrowRight'){
       this.keyInfo.key = evt.key;
       this.keyInfo.shift = evt.shiftKey;
+      this.keyInfo.alt = evt.altKey;
+      this.keyInfo.ctrl = evt.ctrlKey;
     }
   }
 
@@ -63,6 +67,8 @@ class App extends React.Component {
     if(evt.key ==='Tab' || evt.key === 'ArrowUp'|| evt.key === 'ArrowDown'|| evt.key === 'ArrowLeft'|| evt.key === 'ArrowRight'){
       this.keyInfo.key = '';
       this.keyInfo.shift = evt.shiftKey;
+      this.keyInfo.alt = evt.altKey;
+      this.keyInfo.ctrl = evt.ctrlKey;
     }
   }
 

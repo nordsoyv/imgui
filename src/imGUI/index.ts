@@ -35,6 +35,8 @@ export function drawUi(c: CanvasRenderingContext2D, mouseinfo: IMouseInfo, keyIn
   uiState.mouseDown = mouseinfo.leftButton;
   uiState.keyEntered = keyInfo.key;
   uiState.keyShift = keyInfo.shift;
+  uiState.keyAlt = keyInfo.alt;
+  uiState.keyCtrl = keyInfo.ctrl;
   beginUI();
   setCtx(c);
   const red = 255 - uiState.widgetState[ids.SLIDER_1].value;
