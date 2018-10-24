@@ -1,4 +1,3 @@
-
 class UiState {
   public mouseX = 0
   public mouseY = 0;
@@ -16,6 +15,4 @@ class UiState {
 }
 
 
-const uiState = new UiState();
-
-export const getUiState  = () => uiState;
+export const uiState = new UiState();

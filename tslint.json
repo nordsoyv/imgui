@@ -10,7 +10,7 @@
   "rules": {
     "member-access": false,
     "quotemark": false,
-    "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "semicolon": [false, "always", "ignore-bound-class-methods"],
     "ordered-imports": [false],
     "arrow-parens": [true, "ban-single-arg-parens"],
     "interface-name": false,

@@ -1,8 +1,8 @@
-import { getUiState } from './uiState'
+import {uiState} from './uiState'
 import { drawRect, drawText, regionHit, } from './util'
 
 export function button(id: number, x: number, y: number, w: number = 64, h: number = 48) {
-  const uiState = getUiState();
+
   if (regionHit(x, y, w, h)) {
     uiState.hotItem = id;
     if (uiState.activeItem === 0 && uiState.mouseDown) {
@@ -67,7 +67,6 @@ export function button(id: number, x: number, y: number, w: number = 64, h: numb
 }
 
 export function textButton(id: number, text: string, x: number, y: number, w: number = 64, h: number = 48) {
-  const uiState = getUiState();
   if (regionHit(x, y, w, h)) {
     uiState.hotItem = id;
     if (uiState.activeItem === 0 && uiState.mouseDown) {

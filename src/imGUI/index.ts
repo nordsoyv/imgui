@@ -1,49 +1,45 @@
 import { button, textButton } from './button';
 import { ids } from './ids';
 import { slider } from './slider';
-import { getUiState } from './uiState';
+import { uiState } from './uiState';
 import { setCtx, } from './util';
 
 import { IKeyInfo, IMouseInfo } from '../types';
-const uiState = getUiState();
 uiState.widgetState[ids.SLIDER_1] = { value: 100 };
 uiState.widgetState[ids.SLIDER_2] = { value: 100 };
 uiState.widgetState[ids.SLIDER_3] = { value: 100 };
 
 function beginUI() {
-  const uiState2 = getUiState();
-  uiState2.hotItem = 0;
+  uiState.hotItem = 0;
 }
 
 function endUI() {
-  const uiState2 = getUiState();
-  if (uiState2.mouseDown === false) {
-    uiState2.activeItem = 0;
+  if (uiState.mouseDown === false) {
+    uiState.activeItem = 0;
   } else {
-    if (uiState2.activeItem === 0) {
-      uiState2.activeItem = -1;
+    if (uiState.activeItem === 0) {
+      uiState.activeItem = -1;
     }
   }
 
-  if( uiState2.keyEntered === 'Tab'){
-    uiState2.keyFocusItem = 0;
+  if( uiState.keyEntered === 'Tab'){
+    uiState.keyFocusItem = 0;
   }
-  uiState2.keyEntered ='';
+  uiState.keyEntered ='';
 
 }
 
 export function drawUi(c: CanvasRenderingContext2D, mouseinfo: IMouseInfo, keyInfo: IKeyInfo) {
-  const uiState2 = getUiState();
-  uiState2.mouseX = mouseinfo.xPos;
-  uiState2.mouseY = mouseinfo.yPos;
-  uiState2.mouseDown = mouseinfo.leftButton;
-  uiState2.keyEntered = keyInfo.key;
-  uiState2.keyShift = keyInfo.shift;
+  uiState.mouseX = mouseinfo.xPos;
+  uiState.mouseY = mouseinfo.yPos;
+  uiState.mouseDown = mouseinfo.leftButton;
+  uiState.keyEntered = keyInfo.key;
+  uiState.keyShift = keyInfo.shift;
   beginUI();
   setCtx(c);
-  const red = 255 - uiState2.widgetState[ids.SLIDER_1].value;
-  const green = 255 - uiState2.widgetState[ids.SLIDER_2].value;
-  const blue = 255 - uiState2.widgetState[ids.SLIDER_3].value;
+  const red = 255 - uiState.widgetState[ids.SLIDER_1].value;
+  const green = 255 - uiState.widgetState[ids.SLIDER_2].value;
+  const blue = 255 - uiState.widgetState[ids.SLIDER_3].value;
   c.fillStyle = `rgb(${red},${green},${blue})`;
   c.fillRect(0, 0, 1200, 800)
   button(ids.BUTTON_1, 50, 50);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import { drawUi } from './imGUI'
+import { drawUi } from './imGUI';
 import { IKeyInfo,IMouseInfo } from './types';
 
 class App extends React.Component {
@@ -23,7 +23,7 @@ class App extends React.Component {
 
   constructor(props: any) {
     super(props);
-  };
+  }
 
   public componentDidMount() {
     if (this.canvas.current) {
@@ -33,7 +33,7 @@ class App extends React.Component {
       this.canvas.current.addEventListener('keypress', this.getKeyPressed);
       this.canvas.current.addEventListener('keydown', this.getKeyDown);
       this.canvas.current.addEventListener('keyup', this.getKeyUp);
-      requestAnimationFrame(this.renderFrame)
+      requestAnimationFrame(this.renderFrame);
     }
   }
   public render() {
@@ -98,7 +98,7 @@ class App extends React.Component {
   private clearCanvas() {
     if (this.ctx) {
       this.ctx.fillStyle = 'grey';
-      this.ctx.fillRect(0, 0, 1200, 800)
+      this.ctx.fillRect(0, 0, 1200, 800);
     }
   }
 
@@ -109,7 +109,7 @@ class App extends React.Component {
         this.clearCanvas();
         drawUi(this.ctx, this.mouseInfo, this.keyInfo);
       }
-      this.keyInfo.key = ''
+      this.keyInfo.key = '';
       requestAnimationFrame(this.renderFrame);
 
     }

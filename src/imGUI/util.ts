@@ -1,4 +1,4 @@
-import { getUiState } from './uiState'
+import { uiState } from './uiState'
 
 
 let ctx: CanvasRenderingContext2D;
@@ -12,7 +12,6 @@ export function setCtx(c: CanvasRenderingContext2D) {
 // }
 
 export function regionHit(x: number, y: number, w: number, h: number) {
-  const uiState = getUiState();
   if (uiState.mouseX < x || uiState.mouseY < y || uiState.mouseX >= x + w || uiState.mouseY >= y + h) {
     return false
   }
