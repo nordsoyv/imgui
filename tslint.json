@@ -18,6 +18,7 @@
     "no-empty": [true, "allow-empty-functions"],
     "object-literal-sort-keys": false,
     "max-classes-per-file":[true,5],
-    "member-ordering": false
+    "member-ordering": false,
+    "no-bitwise": false
   }
 }

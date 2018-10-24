@@ -18,10 +18,15 @@ export function regionHit(x: number, y: number, w: number, h: number) {
   return true;
 }
 
-export function drawText(text:string,x:number,y:number,){
+export function drawText(text: string, x: number, y: number, ) {
   ctx.fillStyle = 'black';
   ctx.font = "16px serif";
-  ctx.fillText(text,x,y );
+  ctx.fillText(text, x, y);
+}
+
+export function measureText(text: string) {
+  ctx.font = "16px serif";
+  return ctx.measureText(text).width;
 }
 
 export function drawRect(x: number, y: number, width: number, height: number, color: string, radius: number = 0, shadow: boolean = false) {
@@ -54,7 +59,7 @@ export function drawRect(x: number, y: number, width: number, height: number, co
 
   ctx.fillStyle = color;
   ctx.fill();
-  
+
   if (shadow) {
     ctx.shadowColor = "white";
     ctx.shadowOffsetX = 0;

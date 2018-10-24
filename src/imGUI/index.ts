@@ -5,9 +5,11 @@ import { uiState } from './uiState';
 import { setCtx, } from './util';
 
 import { IKeyInfo, IMouseInfo } from '../types';
+import { textField } from './textField';
 uiState.widgetState[ids.SLIDER_1] = { value: 100 };
 uiState.widgetState[ids.SLIDER_2] = { value: 100 };
 uiState.widgetState[ids.SLIDER_3] = { value: 100 };
+uiState.widgetState[ids.TEXT_1] = { value: '' };
 
 function beginUI() {
   uiState.hotItem = 0;
@@ -58,6 +60,7 @@ export function drawUi(c: CanvasRenderingContext2D, mouseinfo: IMouseInfo, keyIn
   slider(ids.SLIDER_1, 500, 40, 255)
   slider(ids.SLIDER_2, 550, 40, 255)
   slider(ids.SLIDER_3, 600, 40, 255)
+  textField(ids.TEXT_1, 50, 300);
 
   // drawRect(uiState.mouseX, uiState.mouseY, 50, 50, uiState.mouseDown ? 'blue' : 'green')
   endUI();
