@@ -8,12 +8,16 @@ export function slider(id : WidgetId, x : number, y : number, max: number) {
   const ypos = ((256 - 16) * value) / max;
   if (regionHit(x + 8, y + 8, 16, 255)) {
     uiState.hotItem = id;
-    if (uiState.activeItem === 0 && uiState.mouseDown) {
+    if (uiState.activeItem === 0 && uiState.leftMouseDown) {
       uiState.activeItem = id;
     }
   }
 
   if (uiState.keyFocusItem === 0) {
+    uiState.keyFocusItem = id;
+  }
+
+  if(uiState.leftMouseDown && uiState.hotItem === id && uiState.activeItem === id){
     uiState.keyFocusItem = id;
   }
 

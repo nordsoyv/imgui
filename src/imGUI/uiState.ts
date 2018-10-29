@@ -1,7 +1,8 @@
 class UiState {
   public mouseX = 0
   public mouseY = 0;
-  public mouseDown = false;
+  public leftMouseDown = false;
+  public rightMouseDown = false;
   public hotItem = 0;
   public activeItem = 0;
   public widgetState: any[] = [];

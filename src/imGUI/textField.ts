@@ -7,12 +7,16 @@ export function textField(id: WidgetId, x: number, y: number, w: number = 100, h
   let text = uiState.widgetState[id].value;
   if (regionHit(x - 4, y - 4, w, h)) {
     uiState.hotItem = id;
-    if (uiState.activeItem === 0 && uiState.mouseDown) {
+    if (uiState.activeItem === 0 && uiState.leftMouseDown) {
       uiState.activeItem = id;
     }
   }
 
   if (uiState.keyFocusItem === 0) {
+    uiState.keyFocusItem = id;
+  }
+
+  if(uiState.leftMouseDown && uiState.hotItem === id && uiState.activeItem === id){
     uiState.keyFocusItem = id;
   }
 

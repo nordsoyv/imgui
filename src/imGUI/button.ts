@@ -5,11 +5,14 @@ export function button(id: number, x: number, y: number, w: number = 64, h: numb
 
   if (regionHit(x, y, w, h)) {
     uiState.hotItem = id;
-    if (uiState.activeItem === 0 && uiState.mouseDown) {
+    if (uiState.activeItem === 0 && uiState.leftMouseDown) {
       uiState.activeItem = id
     }
   }
   if (uiState.keyFocusItem === 0) {
+    uiState.keyFocusItem = id;
+  }
+  if(uiState.leftMouseDown && uiState.hotItem === id && uiState.activeItem === id){
     uiState.keyFocusItem = id;
   }
 
@@ -60,7 +63,7 @@ export function button(id: number, x: number, y: number, w: number = 64, h: numb
   // If button is hot and active, but mouse button is not
   // down, the user must have clicked the button.
 
-  if (uiState.mouseDown === false && uiState.hotItem === id && uiState.activeItem === id) {
+  if (uiState.leftMouseDown === false && uiState.hotItem === id && uiState.activeItem === id) {
     return true;
   }
   return false;
@@ -69,7 +72,7 @@ export function button(id: number, x: number, y: number, w: number = 64, h: numb
 export function textButton(id: number, text: string, x: number, y: number, w: number = 64, h: number = 48) {
   if (regionHit(x, y, w, h)) {
     uiState.hotItem = id;
-    if (uiState.activeItem === 0 && uiState.mouseDown) {
+    if (uiState.activeItem === 0 && uiState.leftMouseDown) {
       uiState.activeItem = id
     }
   }
@@ -121,7 +124,7 @@ export function textButton(id: number, text: string, x: number, y: number, w: nu
 
   uiState.lastWidget = id;
 
-  if (uiState.mouseDown === false && uiState.hotItem === id && uiState.activeItem === id) {
+  if (uiState.leftMouseDown === false && uiState.hotItem === id && uiState.activeItem === id) {
     return true;
   }
   return false;

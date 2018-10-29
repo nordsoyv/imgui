@@ -7,4 +7,8 @@ export const ids = {
   SLIDER_2 : 6,
   SLIDER_3 : 7,
   TEXT_1 :8,
+  RIGHT_CLICK_MENU : 9,
+  RIGHT_CLICK_MENUITEM_1 : 10,
+  RIGHT_CLICK_MENUITEM_2 : 11,
+  RIGHT_CLICK_MENUITEM_3 : 12,
 }

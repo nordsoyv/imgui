@@ -18,8 +18,6 @@ class App extends React.Component {
     key : '',
     shift : false,
   };
-  private ctx: CanvasRenderingContext2D | null;
-
 
   constructor(props: any) {
     super(props);
@@ -33,13 +31,14 @@ class App extends React.Component {
       this.canvas.current.addEventListener('keypress', this.getKeyPressed);
       this.canvas.current.addEventListener('keydown', this.getKeyDown);
       this.canvas.current.addEventListener('keyup', this.getKeyUp);
+      this.canvas.current.addEventListener('contextmenu', e=>e.preventDefault());
       requestAnimationFrame(this.renderFrame);
     }
   }
   public render() {
     return (
       <div className="App">
-        <canvas className="Canvas" id="canvas" width={1200} height={800} ref={this.canvas} tabIndex={1} />
+        <canvas className="Canvas" id="canvas" width={1200} height={800} ref={this.canvas} tabIndex={1} onContextMenu={()=>false} />
       </div>
     );
   }
@@ -88,6 +87,7 @@ class App extends React.Component {
     }
     if (button === 2) {
       this.mouseInfo.rightButton = true;
+      evt.preventDefault();
     }
   };
 
@@ -98,26 +98,20 @@ class App extends React.Component {
     }
     if (button === 2) {
       this.mouseInfo.rightButton = false;
+      evt.preventDefault();
     }
   };
 
-  private clearCanvas() {
-    if (this.ctx) {
-      this.ctx.fillStyle = 'grey';
-      this.ctx.fillRect(0, 0, 1200, 800);
-    }
-  }
-
   private renderFrame = () => {
     if (this.canvas.current) {
-      this.ctx = this.canvas.current.getContext('2d');
-      if (this.ctx) {
-        this.clearCanvas();
-        drawUi(this.ctx, this.mouseInfo, this.keyInfo);
+      const ctx = this.canvas.current.getContext('2d');
+      if (ctx) {
+        ctx.fillStyle = 'grey';
+        ctx.fillRect(0, 0, 1200, 800);
+        drawUi(ctx, this.mouseInfo, this.keyInfo);
       }
       this.keyInfo.key = '';
       requestAnimationFrame(this.renderFrame);
-
     }
   }
 }
