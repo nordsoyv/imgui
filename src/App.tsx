@@ -1,10 +1,8 @@
 import * as React from 'react';
 import './App.css';
-import {ImGuiTest} from "./ImGuiTest";
+import {ImGuiTest} from './ImGuiTest';
 
 class App extends React.Component {
-
-
   constructor(props: any) {
     super(props);
   }
@@ -12,12 +10,10 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <ImGuiTest/>
+        <ImGuiTest />
       </div>
     );
   }
-
-
 }
 
 export default App;

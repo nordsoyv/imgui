@@ -1,5 +1,5 @@
 class UiState {
-  public mouseX = 0
+  public mouseX = 0;
   public mouseY = 0;
   public leftMouseDown = false;
   public rightMouseDown = false;
@@ -9,11 +9,10 @@ class UiState {
   public keyFocusItem = 0;
   public keyEntered = '';
   public keyShift = false;
-  public keyCtrl =false;
+  public keyCtrl = false;
   public keyAlt = false;
 
   public lastWidget = 0;
 }
-
 
 export const uiState = new UiState();

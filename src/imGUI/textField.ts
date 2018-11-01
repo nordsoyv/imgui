@@ -1,7 +1,7 @@
-import { uiState } from './uiState'
-import { drawRect,drawText, regionHit, measureText } from './util'
+import {uiState} from './uiState';
+import {drawRect, drawText, regionHit, measureText} from './util';
 
-import { WidgetId } from '../types';
+import {WidgetId} from '../types';
 
 export function textField(id: WidgetId, x: number, y: number, w: number = 100, h: number = 32) {
   let text = uiState.widgetState[id].value;
@@ -16,7 +16,7 @@ export function textField(id: WidgetId, x: number, y: number, w: number = 100, h
     uiState.keyFocusItem = id;
   }
 
-  if(uiState.leftMouseDown && uiState.hotItem === id && uiState.activeItem === id){
+  if (uiState.leftMouseDown && uiState.hotItem === id && uiState.activeItem === id) {
     uiState.keyFocusItem = id;
   }
 
@@ -26,18 +26,18 @@ export function textField(id: WidgetId, x: number, y: number, w: number = 100, h
 
   if (uiState.hotItem === id || uiState.activeItem === id) {
     drawRect(x, y, w, h, '#aaa');
-  }else{
+  } else {
     drawRect(x, y, w, h, '#888');
   }
-  drawText(text, x + 10, y + (h / 2));
+  drawText(text, x + 10, y + h / 2);
   const textLength = measureText(text);
-  const d =new Date();
+  const d = new Date();
   const ticks = d.getTime() >> 9;
 
-  if (uiState.keyFocusItem === id && ( ticks & 1  )) {
-    drawRect(x+textLength+10, y+2,2,28,"#eee");
+  if (uiState.keyFocusItem === id && ticks & 1) {
+    drawRect(x + textLength + 10, y + 2, 2, 28, '#eee');
   }
-  if( uiState.keyFocusItem === id){
+  if (uiState.keyFocusItem === id) {
     switch (uiState.keyEntered) {
       case 'Tab': {
         if (uiState.keyShift) {
@@ -48,14 +48,12 @@ export function textField(id: WidgetId, x: number, y: number, w: number = 100, h
         uiState.keyEntered = '';
         break;
       }
-      
     }
-    if(uiState.keyEntered){
+    if (uiState.keyEntered) {
       text += uiState.keyEntered;
     }
   }
 
-  uiState.widgetState[id] = {value : text};
+  uiState.widgetState[id] = {value: text};
   uiState.lastWidget = id;
-
 }
