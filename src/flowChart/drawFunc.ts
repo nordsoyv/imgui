@@ -31,8 +31,8 @@ export function drawRect(
 
   if (shadow) {
     ctx.shadowColor = 'black';
-    ctx.shadowOffsetX = 5;
-    ctx.shadowOffsetY = 5;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
     ctx.shadowBlur = 10;
   }
 
@@ -45,4 +45,45 @@ export function drawRect(
     ctx.shadowOffsetY = 0;
     ctx.shadowBlur = 0;
   }
+}
+
+export function drawCircle(
+  x: number,
+  y: number,
+  color: string,
+  radius: number ,
+  shadow: boolean = false
+){
+  const ctx = getCtx();
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(x,y,radius,0,Math.PI*2);
+  ctx.closePath();
+  ctx.fill();
+}
+
+const font = '10px sans-serif';
+
+export function drawText(text: string, x: number, y: number) {
+  const ctx = getCtx();
+  ctx.fillStyle = 'black';
+  ctx.font = font;
+  ctx.fillText(text, x, y);
+}
+
+export function measureText(text: string) {
+  const ctx = getCtx();
+  ctx.font = font;
+  return ctx.measureText(text);
+}
+
+export function drawBezier(startX:number, startY:number,endX:number,endY:number) {
+  const ctx  =getCtx();
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(startX,startY);
+  ctx.bezierCurveTo(startX+50,startY, endX-50, endY, endX,endY);
+  ctx.stroke()
+
 }
