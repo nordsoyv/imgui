@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './App.css';
-import {ImGuiTest} from './ImGuiTest';
+import {FlowChart} from "./flowChart";
+// import {ImGuiTest} from './ImGuiTest';
 
 class App extends React.Component {
   constructor(props: any) {
@@ -10,7 +11,7 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <ImGuiTest />
+        <FlowChart/>
       </div>
     );
   }

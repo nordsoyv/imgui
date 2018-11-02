@@ -20,6 +20,7 @@
     "max-classes-per-file":[true,5],
     "member-ordering": false,
     "no-bitwise": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "no-console": false
   }
 }
