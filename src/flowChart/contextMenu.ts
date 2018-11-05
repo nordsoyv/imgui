@@ -1,12 +1,12 @@
 import {regionHit, uiState} from './context';
-import {addConstNode} from './nodes';
+import {addInputNode} from './nodes';
 import {drawRect, drawText} from './drawFunc';
 
 const menuState = {
   open: false,
   xPos: 0,
   yPos: 0,
-  hotItem: 0,
+  hotItem: -1,
 };
 
 export const updateContextMenu = () => {
@@ -30,7 +30,7 @@ const menuButtonHeight = 28;
 const drawContextMenu = () => {
   drawRect(menuState.xPos, menuState.yPos, menuButtonWidth + 4, (menuButtonHeight + 2) * 4, '#aaa');
   menuButton(1, menuState.xPos + 2, menuState.yPos + 2, 'Const Node', () => {
-    addConstNode(menuState.xPos, menuState.yPos, 0);
+    addInputNode(menuState.xPos, menuState.yPos, 0);
   });
   menuButton(2, menuState.xPos + 2, menuState.yPos + 2 + (menuButtonHeight + 2) * 1);
   menuButton(3, menuState.xPos + 2, menuState.yPos + 2 + (menuButtonHeight + 2) * 2);

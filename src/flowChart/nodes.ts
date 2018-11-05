@@ -1,5 +1,5 @@
 import {drawCircle, drawRect} from './drawFunc';
-import {getNextConnectorId, getNextNodeId, regionHit, uiState} from './context';
+import {regionHit, uiState} from './context';
 export class Node {
   public xPos: number;
   public yPos: number;
@@ -10,18 +10,18 @@ export class Node {
 
 const connectorRadius = 10;
 
-export class ConnectionNode extends Node {
+export class OutBoundConnectionNode extends Node {
   public xOffset: number;
   public yOffset: number;
   public parent: Node;
   public id: number;
 
-  constructor(xOffset: number, yOffset: number, parent: Node) {
+  constructor(id : number, xOffset: number, yOffset: number, parent: Node) {
     super();
     this.xOffset = xOffset;
     this.yOffset = yOffset;
     this.parent = parent;
-    this.id = getNextConnectorId();
+    this.id = id;
   }
 
   getRealPos() {
@@ -39,7 +39,7 @@ export class ConnectionNode extends Node {
     if (regionHit(xPos - connectorRadius, yPos - connectorRadius, connectorRadius * 2, connectorRadius * 2)) {
       uiState.activeConnector = this.id;
     }
-    if (uiState.activeConnector === this.id && uiState.isDraggingConnector === 0 && uiState.leftMouseDown) {
+    if (uiState.activeConnector === this.id && uiState.isDraggingConnector === -1 && uiState.leftMouseDown) {
       uiState.isDraggingConnector = this.id;
     }
     if (uiState.activeConnector === this.id) {
@@ -50,7 +50,7 @@ export class ConnectionNode extends Node {
   }
 }
 
-export class ConstNode extends Node {
+export class InputNode extends Node {
   nodeWidth = 50;
   nodeHeight = 50;
 
@@ -58,9 +58,9 @@ export class ConstNode extends Node {
   public yPos: number;
   public id: number;
   public value: number;
-  constructor(xPos: number, yPos: number, value: number) {
+  constructor(id:number,xPos: number, yPos: number, value: number) {
     super();
-    this.id = getNextNodeId();
+    this.id = id;
     this.xPos = xPos;
     this.yPos = yPos;
     this.value = value;
@@ -81,14 +81,16 @@ export class ConstNode extends Node {
 }
 
 const nodes: Node[] = [];
-const connectorNodes: ConnectionNode[] = [];
+const connectorNodes: OutBoundConnectionNode[] = [];
 
-export const addConstNode = (xPos: number, yPos: number, value: number) => {
-  nodes.push(new ConstNode(xPos, yPos, value));
+export const addInputNode = (xPos: number, yPos: number, value: number) => {
+  const nextId = nodes.length;
+  nodes.push(new InputNode(nextId,xPos, yPos, value));
 };
 
 export const addConnectorNode = (xPos: number, yPos: number, parent: Node) => {
-  connectorNodes.push(new ConnectionNode(xPos, yPos, parent));
+  const nextId = connectorNodes.length;
+  connectorNodes.push(new OutBoundConnectionNode(nextId, xPos, yPos, parent));
 };
 
 export const getNodes = () => nodes;

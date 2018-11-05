@@ -8,22 +8,17 @@ export function getCtx(): CanvasRenderingContext2D {
   return ctx;
 }
 
-let nodeId = 1;
-export const getNextNodeId = () => nodeId++;
-let connectorId = 1;
-export const getNextConnectorId = () => connectorId++;
-
 export const uiState = {
   mouseX: 0,
   mouseY: 0,
   leftMouseDown: false,
   rightMouseDown: false,
-  hotItem: 0,
-  activeItem: 0,
-  lastWidget: 0,
+  hotItem: -1,
+  activeItem: -1,
+  lastWidget: -1,
   contextMenuOpen: false,
-  activeConnector : 0,
-  isDraggingConnector :0
+  activeConnector : -1,
+  isDraggingConnector :-1
 };
 
 
