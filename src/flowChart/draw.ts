@@ -51,7 +51,7 @@ const drawNodes = () => {
 };
 
 const drawConnections = () => {
-  getConnections().forEach((n : Connection) => {
+  getConnections().forEach((n: Connection) => {
     n.draw();
-  })
-}
+  });
+};
