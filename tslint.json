@@ -17,7 +17,7 @@
     "trailing-comma": false,
     "no-empty": [true, "allow-empty-functions"],
     "object-literal-sort-keys": false,
-    "max-classes-per-file":[true,5],
+    "max-classes-per-file":false,
     "member-ordering": false,
     "no-bitwise": false,
     "jsx-no-lambda": false,

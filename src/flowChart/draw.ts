@@ -1,6 +1,6 @@
 import {IMouseInfo} from '../types';
 import {setCtx, uiState} from './context';
-import {OutBoundConnectionNode, getConnectorNodes, getNodes, Node} from './nodes';
+import {OutBoundConnectionNode, getConnectorNodes, getNodes, Node, getConnections, Connection} from './nodes';
 
 import {updateContextMenu} from './contextMenu';
 import {drawBezier} from './drawFunc';
@@ -34,6 +34,8 @@ export const drawFlowChart = (ctx: CanvasRenderingContext2D, mouseInfo: IMouseIn
     const realPos = startNode.getRealPos();
     drawBezier(realPos.xPos, realPos.yPos, uiState.mouseX, uiState.mouseY);
   }
+  drawConnections();
+
   updateContextMenu();
   endUI();
 };
@@ -46,3 +48,9 @@ const drawNodes = () => {
     n.draw();
   });
 };
+
+const drawConnections = () => {
+  getConnections().forEach((n : Connection) => {
+    n.draw();
+  })
+}
