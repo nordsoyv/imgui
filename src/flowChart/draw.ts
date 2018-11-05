@@ -42,6 +42,7 @@ export const drawFlowChart = (ctx: CanvasRenderingContext2D, mouseInfo: IMouseIn
 
 const drawNodes = () => {
   getNodes().forEach((n: Node) => {
+    n.simulate();
     n.draw();
   });
   getConnectorNodes().forEach((n: Node) => {

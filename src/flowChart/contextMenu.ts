@@ -1,5 +1,5 @@
 import {regionHit, uiState} from './context';
-import {addInputNode, addOutputNode} from './nodes';
+import {addCountingNode, addInputNode, addOutputNode} from './nodes';
 import {drawRect, drawText} from './drawFunc';
 
 const menuState = {
@@ -30,12 +30,14 @@ const menuButtonHeight = 28;
 const drawContextMenu = () => {
   drawRect(menuState.xPos, menuState.yPos, menuButtonWidth + 4, (menuButtonHeight + 2) * 4, '#aaa');
   menuButton(1, menuState.xPos + 2, menuState.yPos + 2, 'Input Node', () => {
-    addInputNode(menuState.xPos, menuState.yPos, 0);
+    addInputNode(menuState.xPos, menuState.yPos, 5);
   });
   menuButton(2, menuState.xPos + 2, menuState.yPos + 2 + (menuButtonHeight + 2) * 1, "Output Node", ()=> {
     addOutputNode(menuState.xPos, menuState.yPos);
   });
-  menuButton(3, menuState.xPos + 2, menuState.yPos + 2 + (menuButtonHeight + 2) * 2);
+  menuButton(3, menuState.xPos + 2, menuState.yPos + 2 + (menuButtonHeight + 2) * 2, "Counting Node", () => {
+    addCountingNode(menuState.xPos, menuState.yPos);
+  });
   menuButton(4, menuState.xPos + 2, menuState.yPos + 2 + (menuButtonHeight + 2) * 3);
   // console.log(btn1, btn2, btn3, btn4, menuState.hotItem);
 };
