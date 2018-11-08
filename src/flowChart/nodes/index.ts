@@ -3,6 +3,7 @@ import {Connection} from './connection';
 import {CountingNode, ConstNode} from './inputNodes';
 import {OutputNode} from './outputNodes';
 import {Node} from './node';
+import {SinusNode,MulNode} from "./transformNodes";
 
 const nodes: Node[] = [];
 const connectorNodes: ConnectionNode[] = [];
@@ -23,6 +24,14 @@ export const addInputNode = (xPos: number, yPos: number, value: number) => {
 export const addCountingNode = (xPos: number, yPos: number) => {
   const nextId = nodes.length;
   nodes.push(new CountingNode(nextId, xPos, yPos));
+};
+export const addSinusNode = (xPos: number, yPos: number) => {
+  const nextId = nodes.length;
+  nodes.push(new SinusNode(nextId, xPos, yPos));
+};
+export const addMulNode = (xPos: number, yPos: number) => {
+  const nextId = nodes.length;
+  nodes.push(new MulNode(nextId, xPos, yPos,10));
 };
 
 export const addOutputNode = (xPos: number, yPos: number) => {

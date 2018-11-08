@@ -22,6 +22,6 @@ export class Connection {
   simulate() {
     const node1 = getConnectorNodes()[this.inputNode].parent;
     const node2 = getConnectorNodes()[this.outputNode].parent;
-    node2.value = node1.value;
+    node2.inValue = node1.outValue;
   }
 }

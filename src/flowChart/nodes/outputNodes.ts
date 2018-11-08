@@ -6,15 +6,10 @@ import {colors, hoverShadowSize, nodeHeight, nodeWidth, shadowSize} from "./them
 
 export class OutputNode extends Node {
 
-  public xPos: number;
-  public yPos: number;
-  public id: number;
-  public value: number;
-  public inBoundId: number;
   constructor(id: number, xPos: number, yPos: number) {
     super(id,xPos,yPos);
-    this.value = 0;
-    this.inBoundId = addInBoundConnectorNode(0, (nodeHeight / 2) + 5, this);
+    this.inValue = 0;
+    addInBoundConnectorNode(0, (nodeHeight / 2) + 5, this);
   }
 
   draw() {
@@ -28,8 +23,8 @@ export class OutputNode extends Node {
       drawRect(this.xPos, this.yPos, nodeWidth, nodeHeight, colors.white, [5], true, shadowSize);
     }
     drawRect(this.xPos,this.yPos,nodeWidth, 15, colors.main,[5,5,0,0],false );
-    const textWidth = measureText(this.value.toFixed(1)).width;
-    drawText(this.value.toFixed(1), this.xPos + (nodeWidth - textWidth)/2, this.yPos + 10 );
+    const textWidth = measureText(this.inValue.toFixed(1)).width;
+    drawText(this.inValue.toFixed(1), this.xPos + (nodeWidth - textWidth)/2, this.yPos + 10 );
   }
 
 }
