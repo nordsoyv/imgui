@@ -19,4 +19,10 @@ export class Connection {
     drawBezier(node1Pos.xPos, node1Pos.yPos, node2Pos.xPos, node2Pos.yPos);
 
   }
+
+  simulate() {
+    const node1 = getConnectorNodes()[this.inputNode].parent;
+    const node2 = getConnectorNodes()[this.outputNode].parent;
+    node2.value = node1.value;
+  }
 }

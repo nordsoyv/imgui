@@ -53,5 +53,6 @@ const drawNodes = () => {
 const drawConnections = () => {
   getConnections().forEach((n: Connection) => {
     n.draw();
+    n.simulate();
   });
 };

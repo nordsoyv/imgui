@@ -1,7 +1,6 @@
 import {regionHit, uiState} from "../context";
 import {drawRect, drawText} from "../drawFunc";
-import {addOutBoundConnectorNode, getConnectorNodes} from "./index";
-import {ConnectionNode} from "./connectionNode";
+import {addOutBoundConnectorNode, } from "./index";
 import {Node} from './node'
 
 export class InputNode extends Node {
@@ -71,9 +70,5 @@ export class CountingNode extends Node {
 
   simulate() {
     this.value = (new Date().getTime() - this.startValue) / 1000;
-    const connection = getConnectorNodes()[this.outBoundId] as ConnectionNode;
-    if (connection.connection) {
-      connection.connection.value = this.value;
-    }
   }
 }

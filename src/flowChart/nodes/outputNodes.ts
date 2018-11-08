@@ -1,7 +1,6 @@
 import {regionHit, uiState} from '../context';
 import {drawRect, drawText} from '../drawFunc';
-import {addInBoundConnectorNode, getConnectorNodes} from './index';
-import {ConnectionNode} from './connectionNode';
+import {addInBoundConnectorNode, } from './index';
 import {Node} from './node'
 
 export class OutputNode extends Node {
@@ -35,10 +34,4 @@ export class OutputNode extends Node {
     drawText(this.value.toFixed(2), this.xPos + 15, this.yPos + 5 + this.nodeHeight / 2);
   }
 
-  simulate() {
-    const connection = getConnectorNodes()[this.inBoundId] as ConnectionNode;
-    if (connection.connection) {
-      this.value = connection.connection.value || 0;
-    }
-  }
 }
