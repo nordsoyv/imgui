@@ -12,10 +12,7 @@ export class OutputNode extends Node {
   public value: number;
   public inBoundId: number;
   constructor(id: number, xPos: number, yPos: number) {
-    super();
-    this.id = id;
-    this.xPos = xPos;
-    this.yPos = yPos;
+    super(id,xPos,yPos);
     this.value = 0;
     this.inBoundId = addInBoundConnectorNode(0, (nodeHeight / 2) + 5, this);
   }

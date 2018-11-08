@@ -12,7 +12,7 @@ export class ConnectionNode extends Node {
   public connection: Connection | null = null;
 
   constructor(id: number, xOffset: number, yOffset: number, parent: Node) {
-    super();
+    super(id, xOffset, yOffset);
     this.xOffset = xOffset;
     this.yOffset = yOffset;
     this.parent = parent;

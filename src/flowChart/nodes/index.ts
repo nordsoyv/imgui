@@ -1,6 +1,6 @@
 import {ConnectionNode, InBoundConnectionNode, OutBoundConnectionNode} from './connectionNode';
 import {Connection} from './connection';
-import {CountingNode, InputNode} from './inputNodes';
+import {CountingNode, ConstNode} from './inputNodes';
 import {OutputNode} from './outputNodes';
 import {Node} from './node';
 
@@ -17,7 +17,7 @@ export const addConnection = (inputId: number, outputId: number) => {
 
 export const addInputNode = (xPos: number, yPos: number, value: number) => {
   const nextId = nodes.length;
-  nodes.push(new InputNode(nextId, xPos, yPos, value));
+  nodes.push(new ConstNode(nextId, xPos, yPos, value));
 };
 
 export const addCountingNode = (xPos: number, yPos: number) => {
@@ -52,7 +52,7 @@ export {
   OutBoundConnectionNode,
   Connection,
   CountingNode,
-  InputNode,
+  ConstNode,
   OutputNode,
   Node,
 };
