@@ -2,8 +2,7 @@ import {addConnection, Connection} from './index';
 import {regionHit, uiState} from '../context';
 import {drawCircle} from '../drawFunc';
 import {Node} from './node';
-
-const connectorRadius = 10;
+import {colors, connectorRadius} from "./theme";
 
 export class ConnectionNode extends Node {
   public xOffset: number;
@@ -44,9 +43,9 @@ export class OutBoundConnectionNode extends ConnectionNode {
       uiState.isDraggingConnector = this.id;
     }
     if (uiState.activeConnector === this.id) {
-      drawCircle(xPos + 1, yPos + 1, '#fff', connectorRadius + 2);
+      drawCircle(xPos + 1, yPos + 1, colors.selectedConnectorNode, connectorRadius + 2);
     } else {
-      drawCircle(xPos, yPos, '#aaa', connectorRadius);
+      drawCircle(xPos, yPos, colors.connectorNode, connectorRadius);
     }
   }
 }
@@ -67,9 +66,9 @@ export class InBoundConnectionNode extends ConnectionNode {
       uiState.isDraggingConnector = -1;
     }
     if (uiState.activeConnector === this.id) {
-      drawCircle(xPos + 1, yPos + 1, '#fff', connectorRadius + 2);
+      drawCircle(xPos + 1, yPos + 1, colors.selectedConnectorNode, connectorRadius + 2);
     } else {
-      drawCircle(xPos, yPos, '#aaa', connectorRadius);
+      drawCircle(xPos, yPos, colors.connectorNode, connectorRadius);
     }
   }
 }

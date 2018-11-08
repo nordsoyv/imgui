@@ -1,12 +1,10 @@
 import {regionHit, uiState} from "../context";
-import {drawRect, drawText} from "../drawFunc";
+import {drawRect, drawText, measureText} from "../drawFunc";
 import {addOutBoundConnectorNode, } from "./index";
 import {Node} from './node'
+import {colors, hoverShadowSize, nodeHeight, nodeWidth, shadowSize} from "./theme";
 
 export class InputNode extends Node {
-  nodeWidth = 50;
-  nodeHeight = 50;
-
   public xPos: number;
   public yPos: number;
   public id: number;
@@ -17,26 +15,27 @@ export class InputNode extends Node {
     this.xPos = xPos;
     this.yPos = yPos;
     this.value = value;
-    addOutBoundConnectorNode(this.nodeWidth, this.nodeHeight / 2, this);
+    addOutBoundConnectorNode(nodeWidth, (nodeHeight / 2) + 5, this);
   }
 
   draw() {
-    if (regionHit(this.xPos, this.yPos, this.nodeWidth, this.nodeHeight)) {
+    if (regionHit(this.xPos, this.yPos, nodeWidth, nodeHeight)) {
       uiState.activeItem = this.id;
     }
 
     if (uiState.activeItem === this.id) {
-      drawRect(this.xPos, this.yPos, this.nodeWidth, this.nodeHeight, '#aa2222', 5, true);
+      drawRect(this.xPos, this.yPos, nodeWidth, nodeHeight, colors.white, [5], true, hoverShadowSize);
     } else {
-      drawRect(this.xPos, this.yPos, this.nodeWidth, this.nodeHeight, '#aa2222', 5);
+      drawRect(this.xPos, this.yPos, nodeWidth, nodeHeight, colors.white, [5], true, shadowSize);
     }
-    drawText(this.value.toFixed(1), this.xPos + this.nodeWidth / 2, this.yPos + this.nodeHeight / 2);
+    drawRect(this.xPos,this.yPos,nodeWidth, 15, colors.main,[5,5,0,0],false );
+    const textWidth = measureText(this.value.toFixed(1)).width;
+    drawText(this.value.toFixed(1), this.xPos + (nodeWidth - textWidth)/2, this.yPos + 10 );
+
   }
 }
 
 export class CountingNode extends Node {
-  nodeWidth = 50;
-  nodeHeight = 50;
 
   public xPos: number;
   public yPos: number;
@@ -51,21 +50,22 @@ export class CountingNode extends Node {
     this.yPos = yPos;
     this.startValue = new Date().getTime();
     this.value = new Date().getTime();
-    this.outBoundId = addOutBoundConnectorNode(this.nodeWidth, this.nodeHeight / 2, this);
+    this.outBoundId = addOutBoundConnectorNode(nodeWidth, (nodeHeight / 2) + 5, this);
   }
 
   draw() {
-    if (regionHit(this.xPos, this.yPos, this.nodeWidth, this.nodeHeight)) {
+    if (regionHit(this.xPos, this.yPos, nodeWidth, nodeHeight)) {
       uiState.activeItem = this.id;
     }
 
     if (uiState.activeItem === this.id) {
-      drawRect(this.xPos, this.yPos, this.nodeWidth, this.nodeHeight, '#aa2222', 5, true);
+      drawRect(this.xPos, this.yPos, nodeWidth, nodeHeight, colors.white, [5], true, hoverShadowSize);
     } else {
-      drawRect(this.xPos, this.yPos, this.nodeWidth, this.nodeHeight, '#aa2222', 5);
+      drawRect(this.xPos, this.yPos, nodeWidth, nodeHeight, colors.white, [5], true, shadowSize);
     }
-
-    drawText(this.value.toFixed(2), this.xPos + 5, this.yPos + 5 + this.nodeHeight / 2);
+    drawRect(this.xPos,this.yPos,nodeWidth, 15, colors.main,[5,5,0,0],false );
+    const textWidth = measureText(this.value.toFixed(1)).width;
+    drawText(this.value.toFixed(1), this.xPos + (nodeWidth - textWidth)/2, this.yPos + 10 );
   }
 
   simulate() {
