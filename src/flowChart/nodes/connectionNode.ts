@@ -4,71 +4,86 @@ import {drawCircle} from '../drawFunc';
 import {Node} from './node';
 import {colors, connectorRadius} from "./theme";
 
-export class ConnectionNode extends Node {
-  public xOffset: number;
-  public yOffset: number;
-  public parent: Node;
-  public id: number;
-  public connection: Connection | null = null;
+export class ConnectionNode {
+    public xOffset: number;
+    public yOffset: number;
+    public parent: Node;
+    public id: number;
+    public connection: Connection | null = null;
 
-  constructor(id: number, xOffset: number, yOffset: number, parent: Node) {
-    super(id, xOffset, yOffset);
-    this.xOffset = xOffset;
-    this.yOffset = yOffset;
-    this.parent = parent;
-    this.id = id;
-  }
-  getRealPos() {
-    const xPos = this.parent.xPos + this.xOffset;
-    const yPos = this.parent.yPos + this.yOffset;
-    return {
-      xPos,
-      yPos,
-    };
-  }
+    get xPos() {
+        return this.parent.xPos + this.xOffset;
+    }
+
+    get yPos() {
+        return this.parent.yPos + this.yOffset;
+    }
+
+    constructor(id: number, xOffset: number, yOffset: number, parent: Node) {
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+        this.parent = parent;
+        this.id = id;
+    }
+
+    draw() {
+
+
+    }
+
+    simulate() {
+    }
+
+    protected doHitCheck() {
+        if (regionHit(this.xPos - connectorRadius, this.yPos - connectorRadius, connectorRadius * 2, connectorRadius * 2)) {
+            uiState.activeConnector = this.id;
+            uiState.activeItem = -1;
+            uiState.isDraggingNode = -1;
+        }
+
+    }
+
+    protected drawFrame() {
+        if (uiState.activeConnector === this.id) {
+            drawCircle(this.xPos + 1, this.yPos + 1, colors.selectedConnectorNode, connectorRadius + 2);
+        } else {
+            drawCircle(this.xPos, this.yPos, colors.connectorNode, connectorRadius);
+        }
+    }
+
+    getRealPos() {
+        return {
+            xPos: this.xPos,
+            yPos: this.yPos,
+        };
+    }
 }
 
 export class OutBoundConnectionNode extends ConnectionNode {
-  constructor(id: number, xOffset: number, yOffset: number, parent: Node) {
-    super(id, xOffset, yOffset, parent);
-  }
+    constructor(id: number, xOffset: number, yOffset: number, parent: Node) {
+        super(id, xOffset, yOffset, parent);
+    }
 
-  draw() {
-    const xPos = this.parent.xPos + this.xOffset;
-    const yPos = this.parent.yPos + this.yOffset;
-    if (regionHit(xPos - connectorRadius, yPos - connectorRadius, connectorRadius * 2, connectorRadius * 2)) {
-      uiState.activeConnector = this.id;
+    draw() {
+        this.doHitCheck();
+        if (uiState.activeConnector === this.id && uiState.isDraggingConnector === -1 && uiState.leftMouseDown) {
+            uiState.isDraggingConnector = this.id;
+        }
+        this.drawFrame();
     }
-    if (uiState.activeConnector === this.id && uiState.isDraggingConnector === -1 && uiState.leftMouseDown) {
-      uiState.isDraggingConnector = this.id;
-    }
-    if (uiState.activeConnector === this.id) {
-      drawCircle(xPos + 1, yPos + 1, colors.selectedConnectorNode, connectorRadius + 2);
-    } else {
-      drawCircle(xPos, yPos, colors.connectorNode, connectorRadius);
-    }
-  }
 }
 
 export class InBoundConnectionNode extends ConnectionNode {
-  constructor(id: number, xOffset: number, yOffset: number, parent: Node) {
-    super(id, xOffset, yOffset, parent);
-  }
+    constructor(id: number, xOffset: number, yOffset: number, parent: Node) {
+        super(id, xOffset, yOffset, parent);
+    }
 
-  draw() {
-    const xPos = this.parent.xPos + this.xOffset;
-    const yPos = this.parent.yPos + this.yOffset;
-    if (regionHit(xPos - connectorRadius, yPos - connectorRadius, connectorRadius * 2, connectorRadius * 2)) {
-      uiState.activeConnector = this.id;
+    draw() {
+        this.doHitCheck();
+        if (uiState.activeConnector === this.id && uiState.isDraggingConnector !== -1 && !uiState.leftMouseDown) {
+            addConnection(uiState.isDraggingConnector, this.id);
+            uiState.isDraggingConnector = -1;
+        }
+        this.drawFrame();
     }
-    if (uiState.activeConnector === this.id && uiState.isDraggingConnector !== -1 && !uiState.leftMouseDown) {
-      addConnection(uiState.isDraggingConnector, this.id);
-      uiState.isDraggingConnector = -1;
-    }
-    if (uiState.activeConnector === this.id) {
-      drawCircle(xPos + 1, yPos + 1, colors.selectedConnectorNode, connectorRadius + 2);
-    } else {
-      drawCircle(xPos, yPos, colors.connectorNode, connectorRadius);
-    }
-  }
 }

@@ -1,6 +1,14 @@
 import {IMouseInfo} from '../types';
 import {setCtx, uiState} from './context';
-import {OutBoundConnectionNode, getConnectorNodes, getNodes, Node, getConnections, Connection} from './nodes';
+import {
+    OutBoundConnectionNode,
+    getConnectorNodes,
+    getNodes,
+    Node,
+    getConnections,
+    Connection,
+    ConnectionNode
+} from './nodes';
 
 import {updateContextMenu} from './contextMenu';
 import {drawBezier} from './drawFunc';
@@ -48,7 +56,7 @@ const drawNodes = () => {
     n.simulate();
     n.draw();
   });
-  getConnectorNodes().forEach((n: Node) => {
+  getConnectorNodes().forEach((n: ConnectionNode) => {
     n.draw();
   });
 };

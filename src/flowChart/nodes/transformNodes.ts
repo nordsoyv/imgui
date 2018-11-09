@@ -7,6 +7,7 @@ class TransformNode extends Node {
 
   constructor(id: number, xPos: number, yPos: number) {
     super(id, xPos, yPos);
+    this.outValue = 0;
     addOutBoundConnectorNode(nodeWidth, nodeHeight / 2 + 5, this);
     addInBoundConnectorNode(0, nodeHeight / 2 + 5, this);
   }
@@ -15,7 +16,11 @@ class TransformNode extends Node {
     this.doHitCheck();
     this.drawFrame();
     this.drawHeader();
-    this.drawValue(this.outValue);
+    if(Number.isNaN(this.outValue)){
+      this.drawValue(0)
+    }else {
+      this.drawValue(this.outValue);
+    }
   }
 }
 
@@ -32,7 +37,7 @@ export class MulNode extends TransformNode {
 }
 
 export class SinusNode extends TransformNode {
-  name: string = 'Sinus';
+  name: string = 'Sin';
   constructor(id: number, xPos: number, yPos: number) {
     super(id, xPos, yPos);
   }
