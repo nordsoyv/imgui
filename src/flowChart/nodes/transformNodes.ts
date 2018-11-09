@@ -46,3 +46,15 @@ export class SinusNode extends TransformNode {
     this.outValue = Math.sin(this.inValue);
   }
 }
+
+
+export class AbsNode extends TransformNode {
+    name: string = 'Abs';
+    constructor(id: number, xPos: number, yPos: number) {
+        super(id, xPos, yPos);
+    }
+
+    simulate() {
+        this.outValue = Math.abs(this.inValue);
+    }
+}

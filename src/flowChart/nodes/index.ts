@@ -3,7 +3,7 @@ import {Connection} from './connection';
 import {CountingNode, ConstNode} from './inputNodes';
 import {GraphNode, OutputNode} from './outputNodes';
 import {Node} from './node';
-import {SinusNode, MulNode} from './transformNodes';
+import {SinusNode, MulNode, AbsNode} from './transformNodes';
 
 let nodes: Node[] = [];
 let connectorNodes: ConnectionNode[] = [];
@@ -42,6 +42,11 @@ export const addOutputNode = (xPos: number, yPos: number) => {
 export const addGraphNode = (xPos: number, yPos: number) => {
   const nextId = nodes.length;
   nodes.push(new GraphNode(nextId, xPos, yPos));
+};
+
+export const addAbsNode = (xPos: number, yPos: number) => {
+  const nextId = nodes.length;
+  nodes.push(new AbsNode(nextId, xPos, yPos));
 };
 
 export const addOutBoundConnectorNode = (xPos: number, yPos: number, parent: Node) => {

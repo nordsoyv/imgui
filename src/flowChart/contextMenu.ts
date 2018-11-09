@@ -1,5 +1,5 @@
 import {regionHit, uiState} from './context';
-import {addCountingNode, addGraphNode, addMulNode, addOutputNode, addSinusNode} from './nodes';
+import {addAbsNode, addCountingNode, addGraphNode, addMulNode, addOutputNode, addSinusNode} from './nodes';
 import {drawRect, drawText} from './drawFunc';
 
 const menuState = {
@@ -32,6 +32,7 @@ const menuItems = [
   {name : "Output Node", func: addOutputNode},
   {name : "Graph Node", func: addGraphNode},
   {name : "Sinus Node", func: addSinusNode},
+  {name : "Abs Node", func: addAbsNode},
   {name : "Multiply Node", func: addMulNode},
 ];
 
