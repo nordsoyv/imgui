@@ -1,5 +1,5 @@
 import {regionHit, uiState} from './context';
-import {addCountingNode, addMulNode, addOutputNode, addSinusNode} from './nodes';
+import {addCountingNode, addGraphNode, addMulNode, addOutputNode, addSinusNode} from './nodes';
 import {drawRect, drawText} from './drawFunc';
 
 const menuState = {
@@ -27,24 +27,23 @@ export const updateContextMenu = () => {
 const menuButtonWidth = 100;
 const menuButtonHeight = 28;
 
+const menuItems = [
+  {name : "Counting Node", func: addCountingNode},
+  {name : "Output Node", func: addOutputNode},
+  {name : "Graph Node", func: addGraphNode},
+  {name : "Sinus Node", func: addSinusNode},
+  {name : "Multiply Node", func: addMulNode},
+];
+
+
 const drawContextMenu = () => {
-  drawRect(menuState.xPos, menuState.yPos, menuButtonWidth + 4, (menuButtonHeight + 2) * 4, '#aaa');
-  menuButton(1, menuState.xPos + 2, menuState.yPos + 2 , "Counting Node", () => {
-    addCountingNode(menuState.xPos, menuState.yPos);
-  });
-  // menuButton(1, menuState.xPos + 2, menuState.yPos + 2, 'Input Node', () => {
-  //   addInputNode(menuState.xPos, menuState.yPos, 5);
-  // });
-  menuButton(2, menuState.xPos + 2, menuState.yPos + 2 + (menuButtonHeight + 2) * 1, "Output Node", ()=> {
-    addOutputNode(menuState.xPos, menuState.yPos);
-  });
-  menuButton(3, menuState.xPos + 2, menuState.yPos + 2 + (menuButtonHeight + 2) * 2, "Sinus",() => {
-    addSinusNode(menuState.xPos, menuState.yPos);
-  });
-  menuButton(4, menuState.xPos + 2, menuState.yPos + 2 + (menuButtonHeight + 2) * 3, "Multiply",() => {
-    addMulNode(menuState.xPos, menuState.yPos);
-  });
-  // console.log(btn1, btn2, btn3, btn4, menuState.hotItem);
+  drawRect(menuState.xPos, menuState.yPos, menuButtonWidth + 4, (menuButtonHeight + 2) * menuItems.length, '#aaa');
+  menuItems.forEach((item ,  index)=> {
+    menuButton(index +1, menuState.xPos + 2, menuState.yPos + 2 +((menuButtonHeight + 2 ) * index), item.name, () => {
+      item.func(menuState.xPos, menuState.yPos);
+    });
+  })
+
 };
 
 const menuButton = (id: number, x: number, y: number, text: string = '', cb = () => {}) => {

@@ -18,3 +18,4 @@ export const connectorRadius = 8;
 
 export  const nodeWidth = 50;
 export const nodeHeight = 50;
+export const nodeHeaderHeight = 15;

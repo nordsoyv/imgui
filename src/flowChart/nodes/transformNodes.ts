@@ -1,6 +1,6 @@
 import {Node} from './node';
 import {addInBoundConnectorNode, addOutBoundConnectorNode} from './index';
-import {colors, hoverShadowSize, nodeHeight, nodeWidth, shadowSize} from './theme';
+import {colors, hoverShadowSize, nodeHeaderHeight, nodeHeight, nodeWidth, shadowSize} from './theme';
 import {regionHit, uiState} from '../context';
 import {drawRect, drawText, measureText} from '../drawFunc';
 
@@ -23,7 +23,7 @@ class TransformNode extends Node {
     } else {
       drawRect(this.xPos, this.yPos, nodeWidth, nodeHeight, colors.white, [5], true, shadowSize);
     }
-    drawRect(this.xPos, this.yPos, nodeWidth, 15, colors.main, [5, 5, 0, 0], false);
+    drawRect(this.xPos, this.yPos, nodeWidth, nodeHeaderHeight, colors.main, [5, 5, 0, 0], false);
     const textWidth = measureText(this.name).width;
     drawText(this.name, this.xPos + (nodeWidth - textWidth) / 2, this.yPos + 10);
   }
