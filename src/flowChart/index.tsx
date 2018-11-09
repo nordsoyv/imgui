@@ -1,6 +1,7 @@
-import { IMouseInfo} from '../types';
+import {IMouseInfo} from '../types';
 import * as React from 'react';
 import {drawFlowChart} from './draw';
+import {resetNodes} from './nodes';
 
 export class FlowChart extends React.Component {
   private canvas = React.createRef<HTMLCanvasElement>();
@@ -23,16 +24,19 @@ export class FlowChart extends React.Component {
 
   public render() {
     return (
-      <div className="App">
-        <canvas
-          className="Canvas"
-          id="canvas"
-          width={1200}
-          height={800}
-          ref={this.canvas}
-          tabIndex={1}
-          onContextMenu={() => false}
-        />
+      <div >
+          <button onClick={() => resetNodes()} style={{width: 150}}>
+            Clear
+          </button>
+          <canvas
+            className="Canvas"
+            id="canvas"
+            width={1200}
+            height={800}
+            ref={this.canvas}
+            tabIndex={1}
+            onContextMenu={() => false}
+          />
       </div>
     );
   }

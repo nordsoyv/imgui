@@ -3,11 +3,11 @@ import {Connection} from './connection';
 import {CountingNode, ConstNode} from './inputNodes';
 import {GraphNode, OutputNode} from './outputNodes';
 import {Node} from './node';
-import {SinusNode,MulNode} from "./transformNodes";
+import {SinusNode, MulNode} from './transformNodes';
 
-const nodes: Node[] = [];
-const connectorNodes: ConnectionNode[] = [];
-const connections: Connection[] = [];
+let nodes: Node[] = [];
+let connectorNodes: ConnectionNode[] = [];
+let connections: Connection[] = [];
 
 export const addConnection = (inputId: number, outputId: number) => {
   const connection = new Connection(inputId, outputId);
@@ -31,7 +31,7 @@ export const addSinusNode = (xPos: number, yPos: number) => {
 };
 export const addMulNode = (xPos: number, yPos: number) => {
   const nextId = nodes.length;
-  nodes.push(new MulNode(nextId, xPos, yPos,10));
+  nodes.push(new MulNode(nextId, xPos, yPos, 10));
 };
 
 export const addOutputNode = (xPos: number, yPos: number) => {
@@ -43,8 +43,6 @@ export const addGraphNode = (xPos: number, yPos: number) => {
   const nextId = nodes.length;
   nodes.push(new GraphNode(nextId, xPos, yPos));
 };
-
-
 
 export const addOutBoundConnectorNode = (xPos: number, yPos: number, parent: Node) => {
   const nextId = connectorNodes.length;
@@ -61,6 +59,11 @@ export const addInBoundConnectorNode = (xPos: number, yPos: number, parent: Node
 export const getNodes = () => nodes;
 export const getConnectorNodes = () => connectorNodes;
 export const getConnections = () => connections;
+export const resetNodes = () => {
+  nodes = [];
+  connectorNodes = [];
+  connections = [];
+};
 
 export {
   ConnectionNode,
