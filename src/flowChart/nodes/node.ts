@@ -21,6 +21,20 @@ export class Node {
   protected doHitCheck() {
     if (regionHit(this.xPos, this.yPos, this.nodeXSize, this.nodeYSize)) {
       uiState.activeItem = this.id;
+      if (uiState.leftMouseDown && uiState.isDraggingNode === -1 && uiState.isDraggingConnector === -1) {
+        uiState.isDraggingNode = this.id;
+        uiState.dragStartX = uiState.mouseX;
+        uiState.dragStartY = uiState.mouseY;
+      }
+    }
+    if (uiState.isDraggingNode === this.id) {
+      const movedX = uiState.mouseX - uiState.dragStartX;
+      const movedY = uiState.mouseY - uiState.dragStartY;
+
+      this.xPos = this.xPos + movedX;
+      this.yPos = this.yPos + movedY;
+      uiState.dragStartX = uiState.mouseX;
+      uiState.dragStartY = uiState.mouseY;
     }
   }
 

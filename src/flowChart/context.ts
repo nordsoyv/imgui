@@ -18,7 +18,10 @@ export const uiState = {
   lastWidget: -1,
   contextMenuOpen: false,
   activeConnector : -1,
-  isDraggingConnector :-1
+  isDraggingConnector :-1,
+  isDraggingNode : -1,
+  dragStartX:0,
+  dragStartY:0,
 };
 
 

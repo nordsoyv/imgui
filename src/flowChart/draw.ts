@@ -18,11 +18,14 @@ function endUI() {
     uiState.activeItem = -1;
     uiState.activeConnector = -1;
     uiState.isDraggingConnector = -1;
+    uiState.isDraggingNode = -1;
   } else {
     if (uiState.activeItem === -1) {
       uiState.activeItem = -1;
     }
   }
+  console.log({isDragging: uiState.isDraggingNode, dragStartX: uiState.dragStartX, dragStartY: uiState.dragStartY});
+  console.log();
 }
 
 export const drawFlowChart = (ctx: CanvasRenderingContext2D, mouseInfo: IMouseInfo) => {
