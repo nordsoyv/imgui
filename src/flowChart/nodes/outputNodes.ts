@@ -1,61 +1,51 @@
-import {getCtx, regionHit, uiState} from '../context';
-import {drawRect, drawText, measureText} from '../drawFunc';
+import {getCtx} from '../context';
+import {drawRect} from '../drawFunc';
 import {addInBoundConnectorNode} from './index';
 import {Node} from './node';
-import {colors, hoverShadowSize, nodeHeaderHeight, nodeHeight, nodeWidth, shadowSize} from './theme';
+import {nodeHeaderHeight} from './theme';
 
 export class OutputNode extends Node {
   constructor(id: number, xPos: number, yPos: number) {
     super(id, xPos, yPos);
     this.inValue = 0;
-    addInBoundConnectorNode(0, nodeHeight / 2 + 5, this);
+    this.name = 'Output';
+    addInBoundConnectorNode(0, this.nodeYSize / 2 + 5, this);
   }
 
   draw() {
-    if (regionHit(this.xPos, this.yPos, nodeWidth, nodeHeight)) {
-      uiState.activeItem = this.id;
-    }
+    this.doHitCheck();
+    this.drawFrame();
+    this.drawHeader();
 
-    if (uiState.activeItem === this.id) {
-      drawRect(this.xPos, this.yPos, nodeWidth, nodeHeight, colors.white, [5], true, hoverShadowSize);
-    } else {
-      drawRect(this.xPos, this.yPos, nodeWidth, nodeHeight, colors.white, [5], true, shadowSize);
-    }
-    drawRect(this.xPos, this.yPos, nodeWidth, nodeHeaderHeight, colors.main, [5, 5, 0, 0], false);
-    const textWidth = measureText(this.inValue.toFixed(1)).width;
-    drawText(this.inValue.toFixed(1), this.xPos + (nodeWidth - textWidth) / 2, this.yPos + 10);
+    this.drawValue(this.inValue);
   }
 }
 
 export class GraphNode extends OutputNode {
   oldValues: number[] = [];
   maxItems = 200;
-  nodeXSize = 220;
-  nodeYSize = 150;
 
-  graphYSize = this.nodeYSize -15 -4;
-  graphXSize = this.nodeXSize -4;
-  name  = 'Graphing';
+  graphYSize: number;
+  graphXSize: number;
+  constructor(id: number, xPos: number, yPos: number) {
+    super(id, xPos, yPos);
+    this.name = 'Graphing';
+    this.nodeXSize = 220;
+    this.nodeYSize = 150;
+    this.graphYSize = this.nodeYSize - 15 - 4;
+    this.graphXSize = this.nodeXSize - 4;
+  }
   draw() {
-    if (regionHit(this.xPos, this.yPos, nodeWidth, nodeHeight)) {
-      uiState.activeItem = this.id;
-    }
+    this.doHitCheck();
     const max = Math.max(...this.oldValues);
     const min = Math.min(...this.oldValues);
     const spread = max - min;
     const graphXStart = this.xPos + 2;
     const graphYStart = this.yPos + nodeHeaderHeight + 2;
 
-    if (uiState.activeItem === this.id) {
-      drawRect(this.xPos, this.yPos, this.nodeXSize, this.nodeYSize, colors.white, [5], true, hoverShadowSize);
-    } else {
-      drawRect(this.xPos, this.yPos,  this.nodeXSize, this.nodeYSize, colors.white, [5], true, shadowSize);
-    }
-    drawRect(this.xPos, this.yPos, this.nodeXSize,nodeHeaderHeight , colors.main, [5, 5, 0, 0], false);
-    const textWidth = measureText(this.name).width;
-    drawText(this.name, this.xPos + (this.graphXSize + 4 - textWidth) / 2, this.yPos + 10);
-
-    drawRect(graphXStart, graphYStart, this.graphYSize, this.graphYSize, 'blue', [0], false);
+    this.drawFrame();
+    this.drawHeader();
+    drawRect(graphXStart, graphYStart, this.graphXSize, this.graphYSize, 'blue', [0], false);
 
     const scale = (num: number) => {
       const ratio = (num - min) / spread;

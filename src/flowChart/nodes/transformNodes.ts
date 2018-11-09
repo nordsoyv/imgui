@@ -1,8 +1,6 @@
 import {Node} from './node';
 import {addInBoundConnectorNode, addOutBoundConnectorNode} from './index';
-import {colors, hoverShadowSize, nodeHeaderHeight, nodeHeight, nodeWidth, shadowSize} from './theme';
-import {regionHit, uiState} from '../context';
-import {drawRect, drawText, measureText} from '../drawFunc';
+import {nodeHeight, nodeWidth} from './theme';
 
 class TransformNode extends Node {
   name: string = '*';
@@ -14,18 +12,10 @@ class TransformNode extends Node {
   }
 
   draw() {
-    if (regionHit(this.xPos, this.yPos, nodeWidth, nodeHeight)) {
-      uiState.activeItem = this.id;
-    }
-
-    if (uiState.activeItem === this.id) {
-      drawRect(this.xPos, this.yPos, nodeWidth, nodeHeight, colors.white, [5], true, hoverShadowSize);
-    } else {
-      drawRect(this.xPos, this.yPos, nodeWidth, nodeHeight, colors.white, [5], true, shadowSize);
-    }
-    drawRect(this.xPos, this.yPos, nodeWidth, nodeHeaderHeight, colors.main, [5, 5, 0, 0], false);
-    const textWidth = measureText(this.name).width;
-    drawText(this.name, this.xPos + (nodeWidth - textWidth) / 2, this.yPos + 10);
+    this.doHitCheck();
+    this.drawFrame();
+    this.drawHeader();
+    this.drawValue(this.outValue);
   }
 }
 
