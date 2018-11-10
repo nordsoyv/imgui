@@ -49,7 +49,7 @@ export class GraphNode extends OutputNode {
 
     const scale = (num: number) => {
       const ratio = (num - min) / spread;
-      return ratio * this.graphYSize;
+      return ratio * this.graphYSize * -1;
     };
 
     const ctx = getCtx();
@@ -59,7 +59,7 @@ export class GraphNode extends OutputNode {
     ctx.beginPath();
     ctx.moveTo(graphXStart, graphYStart + this.graphYSize / 2);
     this.oldValues.forEach((num, index) => {
-      ctx.lineTo(graphXStart + index, graphYStart + scale(num));
+      ctx.lineTo(graphXStart + index, graphYStart + this.graphYSize + scale(num));
     });
     ctx.stroke();
   }
