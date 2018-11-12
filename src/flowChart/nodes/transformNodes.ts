@@ -48,14 +48,15 @@ export class SinusNode extends TransformNode {
   }
 }
 
-
 export class AbsNode extends TransformNode {
-    name: string = 'Abs';
-    constructor(id: number, xPos: number, yPos: number) {
-        super(id, xPos, yPos);
-    }
+  name: string = 'Abs';
+  constructor(id: number, xPos: number, yPos: number) {
+    super(id, xPos, yPos);
+  }
 
-    simulate() {
-        this.outValue = Math.abs(this.inValue);
-    }
+  simulate() {
+    const inNode = getConnectorNodes()[this.inboundId];
+    const outNode = getConnectorNodes()[this.outboundId];
+    outNode.value = Math.abs(inNode.value);
+  }
 }
