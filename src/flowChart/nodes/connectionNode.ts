@@ -2,7 +2,7 @@ import {addConnection, Connection} from './index';
 import {regionHit, uiState} from '../context';
 import {drawCircle} from '../drawFunc';
 import {Node} from './node';
-import {colors, connectorRadius} from "./theme";
+import {colors, connectorRadius} from './theme';
 
 export class ConnectionNode {
     public xOffset: number;
@@ -10,6 +10,7 @@ export class ConnectionNode {
     public parent: Node;
     public id: number;
     public connection: Connection | null = null;
+  public value: any;
 
     get xPos() {
         return this.parent.xPos + this.xOffset;
@@ -21,12 +22,12 @@ export class ConnectionNode {
 
     constructor(id: number, xOffset: number, yOffset: number, parent: Node) {
         this.xOffset = xOffset;
-        this.yOffset = yOffset;
-        this.parent = parent;
-        this.id = id;
-    }
-
-    draw() {
+    this.yOffset = yOffset;
+    this.parent = parent;
+    this.id = id;
+    this.value = 0;
+  }
+  draw() {
 
 
     }
@@ -55,8 +56,9 @@ export class ConnectionNode {
         return {
             xPos: this.xPos,
             yPos: this.yPos,
-        };
-    }
+    };
+  }
+  draw() {}
 }
 
 export class OutBoundConnectionNode extends ConnectionNode {

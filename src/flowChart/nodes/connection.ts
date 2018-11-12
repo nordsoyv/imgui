@@ -4,12 +4,10 @@ import {getConnectorNodes} from './index';
 export class Connection {
   public inputNode: number;
   public outputNode: number;
-  public value: any;
 
   constructor(inputId: number, outputId: number) {
     this.inputNode = inputId;
     this.outputNode = outputId;
-    this.value = null;
   }
 
   draw() {
@@ -20,8 +18,8 @@ export class Connection {
   }
 
   simulate() {
-    const node1 = getConnectorNodes()[this.inputNode].parent;
-    const node2 = getConnectorNodes()[this.outputNode].parent;
-    node2.inValue = node1.outValue;
+    const node1 = getConnectorNodes()[this.inputNode];
+    const node2 = getConnectorNodes()[this.outputNode];
+    node2.value = node1.value;
   }
 }

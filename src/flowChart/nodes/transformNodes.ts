@@ -1,26 +1,23 @@
 import {Node} from './node';
-import {addInBoundConnectorNode, addOutBoundConnectorNode} from './index';
+import {addInBoundConnectorNode, addOutBoundConnectorNode, getConnectorNodes} from './index';
 import {nodeHeight, nodeWidth} from './theme';
 
 class TransformNode extends Node {
   name: string = '*';
+  outboundId = 0;
+  inboundId = 0;
 
   constructor(id: number, xPos: number, yPos: number) {
     super(id, xPos, yPos);
-    this.outValue = 0;
-    addOutBoundConnectorNode(nodeWidth, nodeHeight / 2 + 5, this);
-    addInBoundConnectorNode(0, nodeHeight / 2 + 5, this);
+    this.outboundId = addOutBoundConnectorNode(nodeWidth, nodeHeight / 2 + 5, this);
+    this.inboundId = addInBoundConnectorNode(0, nodeHeight / 2 + 5, this);
   }
 
   draw() {
     this.doHitCheck();
     this.drawFrame();
     this.drawHeader();
-    if(Number.isNaN(this.outValue)){
-      this.drawValue(0)
-    }else {
-      this.drawValue(this.outValue);
-    }
+    this.drawValue(getConnectorNodes()[this.outboundId].value);
   }
 }
 
@@ -32,7 +29,9 @@ export class MulNode extends TransformNode {
   }
 
   simulate() {
-    this.outValue = this.inValue * this.mul;
+    const inNode = getConnectorNodes()[this.inboundId];
+    const outNode = getConnectorNodes()[this.outboundId];
+    outNode.value = inNode.value * this.mul;
   }
 }
 
@@ -43,7 +42,9 @@ export class SinusNode extends TransformNode {
   }
 
   simulate() {
-    this.outValue = Math.sin(this.inValue);
+    const inNode = getConnectorNodes()[this.inboundId];
+    const outNode = getConnectorNodes()[this.outboundId];
+    outNode.value = Math.sin(inNode.value);
   }
 }
 

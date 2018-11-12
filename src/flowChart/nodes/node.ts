@@ -6,8 +6,6 @@ export class Node {
   public xPos: number;
   public yPos: number;
   public id: number;
-  public inValue: any;
-  public outValue: any;
   protected nodeXSize: number = nodeWidth;
   protected nodeYSize: number = nodeHeight;
   protected name: string;

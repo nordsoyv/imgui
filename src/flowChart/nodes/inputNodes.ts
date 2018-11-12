@@ -1,11 +1,12 @@
-import {addOutBoundConnectorNode} from './index';
+import {addOutBoundConnectorNode, getConnectorNodes} from './index';
 import {Node} from './node';
 import {nodeHeight, nodeWidth} from './theme';
 
 export class InputNode extends Node {
+  outboundId = 0;
   constructor(id: number, xPos: number, yPos: number) {
     super(id, xPos, yPos);
-    this.outValue = 0;
+    this.outboundId = addOutBoundConnectorNode(nodeWidth, nodeHeight / 2 + 5, this);
   }
 
   draw() {
@@ -13,16 +14,15 @@ export class InputNode extends Node {
     this.drawFrame();
 
     this.drawHeader();
-    this.drawValue(this.outValue);
+    this.drawValue(getConnectorNodes()[this.outboundId].value);
   }
 }
 
 export class ConstNode extends InputNode {
   constructor(id: number, xPos: number, yPos: number, value: any) {
     super(id, xPos, yPos);
-    this.outValue = value;
     this.name = 'Const';
-    addOutBoundConnectorNode(nodeWidth, nodeHeight / 2 + 5, this);
+    getConnectorNodes()[this.outboundId].value = value;
   }
 }
 
@@ -31,12 +31,12 @@ export class CountingNode extends InputNode {
   constructor(id: number, xPos: number, yPos: number) {
     super(id, xPos, yPos);
     this.startValue = new Date().getTime();
-    this.outValue = new Date().getTime();
+    getConnectorNodes()[this.outboundId].value = new Date().getTime();
     this.name = 'Counting';
-    addOutBoundConnectorNode(nodeWidth, nodeHeight / 2 + 5, this);
   }
 
   simulate() {
-    this.outValue = (new Date().getTime() - this.startValue) / 1000;
+    const outNode = getConnectorNodes()[this.outboundId];
+    outNode.value = (new Date().getTime() - this.startValue) / 1000;
   }
 }

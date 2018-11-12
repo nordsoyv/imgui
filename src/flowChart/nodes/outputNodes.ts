@@ -1,15 +1,16 @@
 import {getCtx} from '../context';
 import {drawRect} from '../drawFunc';
-import {addInBoundConnectorNode} from './index';
+import {addInBoundConnectorNode, getConnectorNodes} from './index';
 import {Node} from './node';
 import {nodeHeaderHeight} from './theme';
 
 export class OutputNode extends Node {
+  inboundId = 0;
+
   constructor(id: number, xPos: number, yPos: number) {
     super(id, xPos, yPos);
-    this.inValue = 0;
     this.name = 'Output';
-    addInBoundConnectorNode(0, this.nodeYSize / 2 + 5, this);
+    this.inboundId = addInBoundConnectorNode(0, this.nodeYSize / 2 + 5, this);
   }
 
   draw() {
@@ -17,7 +18,7 @@ export class OutputNode extends Node {
     this.drawFrame();
     this.drawHeader();
 
-    this.drawValue(this.inValue);
+    this.drawValue(getConnectorNodes()[this.inboundId].value);
   }
 }
 
@@ -65,7 +66,7 @@ export class GraphNode extends OutputNode {
   }
 
   simulate() {
-    this.oldValues.push(this.inValue);
+    this.oldValues.push(getConnectorNodes()[this.inboundId].value);
     if (this.oldValues.length > this.maxItems) {
       this.oldValues = this.oldValues.slice(this.oldValues.length - this.maxItems);
     }
